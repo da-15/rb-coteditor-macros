@@ -2,12 +2,9 @@
 #%%%{CotEditorXInput=AllText}%%%
 #%%%{CotEditorXOutput=ReplaceAllText}%%%
 
-while $stdin.gets
-	# CR/LF時のおまじない（CotEditorで$がうまく挙動しない）
-	$_ = $_.sub(/\R/, "\n")
-	
-	# 置換処理
-	print $_.gsub(/,/, "\t").gsub(/"/, "")
+while line = $stdin.gets
+  line.chomp! # 行末の改行コード（\r\n も \n も \r も）を削除
+  puts line.gsub(/,/, "\t").delete('"')
 end
 
 #print "\n\"\""
