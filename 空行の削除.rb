@@ -2,11 +2,13 @@
 #%%%{CotEditorXInput=AllText}%%%
 #%%%{CotEditorXOutput=ReplaceAllText}%%%
 
-# 空行を1行だけ削除（連続した空行は残す）
-print $stdin.read.gsub(/^\n([^\n])/, '\1')
+text = $stdin.read
+
+# 「行頭の余分な1行空行だけ削除」
+text.gsub!(/^\n([^\n])/, '\1')
+
+print text
 
 # 備考:
 # Rubyで正規表現の$1を使う代わりに、'\1'を使う。
 # シングルクオートでないとうまく動かない。
-
-exit

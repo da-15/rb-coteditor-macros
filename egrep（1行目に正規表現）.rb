@@ -20,7 +20,7 @@ while $stdin.gets
 		cond = $_.chomp.split("\t")
 		if cond[1]
 			if /i/i =~ cond[1]
-				re = Regexp.new(cond[0], "-i")
+				re = Regexp.new(cond[0], Regexp::IGNORECASE) #re = Regexp.new(cond[0], "-i")
 			else
 				re = Regexp.new(cond[0])
 			end
@@ -36,27 +36,32 @@ while $stdin.gets
 		else
 			re = Regexp.new(cond[0])
 		end
+
 	else
+		line = $_.chomp  # ここで改行を削除
+
 		if inv_flag
-			if !(re =~ $_)
+			if !(re =~ line)
 				if num_flag
-					temp = ($.-1).to_s + ": " + $_
+					temp = ($.-1).to_s + ": " + line
 					whole << temp
 				else
-					whole << $_
+					whole << line
 				end
 			end
 		else
-			if re =~ $_
+			if re =~ line
 				if num_flag
-					temp = ($.-1).to_s + ": " + $_
+					temp = ($.-1).to_s + ": " + line
 					whole << temp
 				else
-					whole << $_
+					whole << line
 				end
 			end
 		end
 	end
+
+
 end
 
 if rev_flag

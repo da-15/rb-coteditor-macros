@@ -2,18 +2,12 @@
 #%%%{CotEditorXInput=AllText}%%%
 #%%%{CotEditorXOutput=ReplaceAllText}%%%
 
-while $stdin.gets	
-	# 改行コードを省く（\rは考慮しない）
-	$_ = $_.sub(/\n/, "")
-	
-	# ダブルクオート付きで列を複製（+ 改行コードを戻す）
-	# $_ = "\"" + $_ + "\"\t\"" + $_ + "\"\n"
-	
-	# 列を複製（+ 改行コードを戻す）
-	$_ = $_ + "\t" + $_ + "\n"
-	
-	
-	print $_
+while line = $stdin.gets
+  # 改行を除去
+  line.chomp!
+  
+  # 複製してタブ区切りに（行末に改行をつける）
+  puts "#{line}\t#{line}"
 end
 
 exit
