@@ -4,9 +4,7 @@
 
 while line = $stdin.gets
   line.chomp! # 行末の改行コード（\r\n も \n も \r も）を削除
-  puts line.gsub(/,/, "\t").delete('"')
+  puts line.gsub(/['"]*\s*,\s*['"]*/, "\t").gsub(/^["']*/, '')
 end
-
-#print "\n\"\""
 
 exit
