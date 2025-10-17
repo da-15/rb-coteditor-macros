@@ -19,7 +19,10 @@ re = nil
 
 while $stdin.gets
   if $. == 1
-    cond = $_.chomp.split("\t")
+    cond_line = $_.chomp
+    whole << cond_line   # ← 条件行も出力に残す
+    cond = cond_line.split("\t")
+
     if cond[1]
       if /i/i =~ cond[1]
         re = Regexp.new(cond[0], Regexp::IGNORECASE)
@@ -34,7 +37,6 @@ while $stdin.gets
     end
   else
     line = $_.chomp
-
     matched = (re =~ line)
     matched = !matched if inv_flag
 
@@ -45,12 +47,17 @@ while $stdin.gets
         whole << line
       end
     else
-      whole << ""  # ← 合致しなかった行を空行として保持
+      whole << ""  # ← 空行で行数保持
     end
   end
 end
 
-whole.reverse! if rev_flag
+# 条件行は常に先頭に残すようにして、逆順は2行目以降だけに適用
+if rev_flag
+  cond_line = whole.shift
+  rest = whole.reverse
+  whole = [cond_line] + rest
+end
 
 whole.each { |line| puts line }
 
