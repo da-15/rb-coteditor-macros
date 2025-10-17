@@ -40,19 +40,18 @@ while $stdin.gets
 
     if matched
       if num_flag
-        temp = ($. - 1).to_s + ": " + line
-        whole << temp
+        whole << "#{$. - 1}: #{line}"
       else
         whole << line
       end
+    else
+      whole << ""  # ← 合致しなかった行を空行として保持
     end
   end
 end
 
 whole.reverse! if rev_flag
 
-whole.each do |line|
-  puts line  # ← 改行付きで出力
-end
+whole.each { |line| puts line }
 
 exit
