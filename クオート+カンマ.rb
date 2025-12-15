@@ -7,7 +7,7 @@ while $stdin.gets
 	$_ = $_.sub(/\R/, "\n")
 	
 	# 置換処理
-	print $_.sub(/^/, "'").sub(/$/, "',")
+	print $_.sub(/^/, "\"").sub(/$/, "\",")
 end
 
 #print "\n\"\""
